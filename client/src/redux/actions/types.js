@@ -1,0 +1,14 @@
+export const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
+export const REGISTER_FAIL = 'REGISTER_FAIL';
+export const USER_LOADED = 'USER_LOADED';
+export const AUTH_ERROR = ' AUTH_ERROR';
+export const NO_TOKEN = 'NO_TOKEN';
+export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
+export const LOGIN_FAIL = 'LOGIN_FAIL';
+export const LOGOUT = 'LOGOUT';
+export const ACCOUNT_DELETED = 'ACCOUNT_DELETED';
+export const CLEAR_PROFILE = 'CLEAR_PROFILE';
+export const CLEAR_CHARACTERS = 'CLEAR_CHARACTERS';
+export const SET_ALERT = 'SET_ALERT';
+export const REMOVE_ALERT = 'REMOVE_ALERT';
+export const SET_LOGIN_ALERT = ' SET_LOGIN_ALERT';
