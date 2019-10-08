@@ -1,5 +1,4 @@
 import {
-  REGISTER_SUCCESS,
   REGISTER_FAIL,
   USER_LOADED,
   AUTH_ERROR,
@@ -28,7 +27,6 @@ export default function(state = initialState, action) {
         loading: false,
         user: payload
       };
-    case REGISTER_SUCCESS:
     case LOGIN_SUCCESS:
       return {
         ...state,

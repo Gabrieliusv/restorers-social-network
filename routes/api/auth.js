@@ -46,7 +46,7 @@ router.post(
       if (!user) {
         return res
           .status(400)
-          .json({ errors: { msg: 'Email or password is incorrect' } });
+          .json({ errors: [{ msg: 'Email or password is incorrect' }] });
       }
 
       const isMatch = await bcrypt.compare(password, user.password);
@@ -54,7 +54,7 @@ router.post(
       if (!isMatch) {
         return res
           .status(400)
-          .json({ errors: { msg: 'Email or password is incorrect' } });
+          .json({ errors: [{ msg: 'Email or password is incorrect' }] });
       }
 
       const payload = {

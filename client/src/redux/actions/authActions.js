@@ -36,27 +36,27 @@ export const loadUser = () => async dispatch => {
 };
 
 //Register User
-export const register = ({ name, email, password }) => async dispatch => {
+export const register = ({
+  name,
+  email,
+  password,
+  aboutMe
+}) => async dispatch => {
   const config = {
     headers: {
       'Content-Type': 'application/json'
     }
   };
 
-  const body = JSON.stringify({ name, email, password });
+  const body = JSON.stringify({ name, email, password, aboutMe });
 
   try {
     const res = await axios.post('/api/users', body, config);
-
-    localStorage.setItem('token', res.data.token);
-    setAuthToken(localStorage.token);
 
     dispatch({
       type: REGISTER_SUCCESS,
       payload: res.data
     });
-    dispatch(removeAlert());
-    dispatch(loadUser());
   } catch (err) {
     const errors = err.response.data.errors;
 
@@ -64,8 +64,6 @@ export const register = ({ name, email, password }) => async dispatch => {
       dispatch(removeAlert());
       errors.forEach(error => dispatch(setAlert(error.msg, 'error')));
     }
-
-    localStorage.removeItem('token');
 
     dispatch({
       type: REGISTER_FAIL
@@ -100,7 +98,7 @@ export const login = (email, password) => async dispatch => {
 
     if (errors) {
       dispatch(removeAlert());
-      dispatch(setLoginAlert(errors.msg));
+      errors.forEach(error => dispatch(setLoginAlert(error.msg)));
     }
 
     localStorage.removeItem('token');
