@@ -1,10 +1,18 @@
-import React, { useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import React, { useState, useEffect } from 'react';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import { register } from '../../redux/actions/authActions';
 import { setAlert, removeAlert } from '../../redux/actions/alertActions';
 import PropTypes from 'prop-types';
-import { Paper, Typography, TextField, Button } from '@material-ui/core';
+import {
+  Paper,
+  Typography,
+  TextField,
+  Button,
+  Dialog,
+  DialogTitle
+} from '@material-ui/core';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 const useStyles = makeStyles(theme => ({
   body: {
@@ -33,8 +41,16 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const Signup = ({ register, setAlert, removeAlert, alerts }) => {
+const Signup = ({
+  register,
+  setAlert,
+  removeAlert,
+  alert: { alerts, registerAlert },
+  history
+}) => {
   const classes = useStyles();
+  const theme = useTheme();
+  const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
   const [requiredField, setRequiredField] = useState(false);
   const [match, setMatch] = useState(true);
   const [emailValidation, setEmailValidation] = useState(true);
@@ -45,8 +61,20 @@ const Signup = ({ register, setAlert, removeAlert, alerts }) => {
     password2: '',
     aboutMe: ''
   });
+  const [openRegistered, setOpenRegistered] = useState(false);
 
   const { name, email, password, password2, aboutMe } = formData;
+
+  useEffect(() => {
+    if (registerAlert !== '') {
+      setOpenRegistered(true);
+      const timer = setTimeout(() => history.push('/'), 1000);
+      return () => {
+        clearTimeout(timer);
+        removeAlert();
+      };
+    }
+  }, [registerAlert, history, removeAlert]);
 
   const handleChange = e => {
     setFormData({
@@ -195,18 +223,26 @@ const Signup = ({ register, setAlert, removeAlert, alerts }) => {
           </Button>
         </form>
       </Paper>
+
+      <Dialog
+        fullScreen={fullScreen}
+        open={openRegistered}
+        aria-labelledby='signup-success'
+      >
+        <DialogTitle id='signup-success'>{registerAlert.msg}</DialogTitle>
+      </Dialog>
     </div>
   );
 };
 Signup.propTypes = {
-  alerts: PropTypes.string,
+  alert: PropTypes.object,
   register: PropTypes.func.isRequired,
   setAlert: PropTypes.func.isRequired,
   removeAlert: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
-  alerts: state.alert.alerts
+  alert: state.alert
 });
 
 export default connect(
