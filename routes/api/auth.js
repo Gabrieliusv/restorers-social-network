@@ -49,6 +49,12 @@ router.post(
           .json({ errors: [{ msg: 'Email or password is incorrect' }] });
       }
 
+      if (user.userStatus === 'inactive') {
+        return res
+          .status(403)
+          .json({ errors: [{ msg: 'User is not activated' }] });
+      }
+
       const isMatch = await bcrypt.compare(password, user.password);
 
       if (!isMatch) {
