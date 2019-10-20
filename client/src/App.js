@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Provider } from 'react-redux';
+import { Provider, connect } from 'react-redux';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import store from './redux/store';
 import './App.css';
@@ -13,8 +13,9 @@ import Restauratoriai from './components/layout/Restauratoriai';
 import Navbar from './components/layout/Navbar';
 import Login from './components/layout/Login';
 import Signup from './components/layout/Signup';
+import UserNavbar from './components/layout/UserNavbar';
 
-const App = () => {
+let App = ({ isAuthenticated }) => {
   useEffect(() => {
     if (localStorage.token) {
       store.dispatch(loadUser());
@@ -24,21 +25,33 @@ const App = () => {
   }, []);
 
   return (
+    <Router>
+      {!isAuthenticated ? <Navbar /> : <UserNavbar />}
+      <Switch>
+        <Route exact path='/' component={Landing} />
+        <Route exact path='/restauratoriai' component={Restauratoriai} />
+        <Route exact path='/blog' component={Blog} />
+        <Route exact path='/about' component={About} />
+        <Route exact path='/login' component={Login} />
+        <Route exact path='/signup' component={Signup} />
+        <PrivateRoute exact path='/profile' component={Profile} />
+      </Switch>
+    </Router>
+  );
+};
+
+const mapStateToProps = state => ({
+  isAuthenticated: state.auth.isAuthenticated
+});
+
+App = connect(mapStateToProps)(App);
+
+const AppWithStore = () => {
+  return (
     <Provider store={store}>
-      <Router>
-        <Navbar />
-        <Switch>
-          <Route exact path='/' component={Landing} />
-          <Route exact path='/restauratoriai' component={Restauratoriai} />
-          <Route exact path='/blog' component={Blog} />
-          <Route exact path='/about' component={About} />
-          <Route exact path='/login' component={Login} />
-          <Route exact path='/signup' component={Signup} />
-          <PrivateRoute exact path='/profile' component={Profile} />
-        </Switch>
-      </Router>
+      <App />
     </Provider>
   );
 };
 
-export default App;
+export default AppWithStore;

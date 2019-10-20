@@ -1,7 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { connect } from 'react-redux';
+import { logout } from '../../redux/actions/authActions';
 import { Link, NavLink } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
-import { Typography, Button, Toolbar, AppBar, Box } from '@material-ui/core';
+import {
+  Typography,
+  Toolbar,
+  AppBar,
+  Box,
+  IconButton,
+  Menu,
+  MenuItem
+} from '@material-ui/core';
+import AccountCircle from '@material-ui/icons/AccountCircle';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -34,8 +45,18 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-function Navbar() {
+function Navbar({ logout }) {
   const classes = useStyles();
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
+
+  const handleMenu = event => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
   return (
     <div className={classes.root}>
@@ -75,15 +96,44 @@ function Navbar() {
               Blog'as
             </NavLink>
           </Box>
-          <Button color='inherit' className={classes.button}>
-            <Link to='/login' className={classes.button__link}>
-              Login
-            </Link>
-          </Button>
+          <IconButton
+            aria-label='account of current user'
+            aria-controls='menu-appbar'
+            aria-haspopup='true'
+            onClick={handleMenu}
+            color='inherit'
+          >
+            <AccountCircle />
+          </IconButton>
+          <Menu
+            id='menu-appbar'
+            anchorEl={anchorEl}
+            anchorOrigin={{
+              vertical: 'top',
+              horizontal: 'right'
+            }}
+            keepMounted
+            transformOrigin={{
+              vertical: 'top',
+              horizontal: 'right'
+            }}
+            open={open}
+            onClose={handleClose}
+          >
+            <MenuItem>
+              <Link to='/profile' className={classes.button__link}>
+                Profile
+              </Link>
+            </MenuItem>
+            <MenuItem onClick={logout}>Logout</MenuItem>
+          </Menu>
         </Toolbar>
       </AppBar>
     </div>
   );
 }
 
-export default Navbar;
+export default connect(
+  null,
+  { logout }
+)(Navbar);

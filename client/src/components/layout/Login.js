@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { login } from '../../redux/actions/authActions';
 import { makeStyles } from '@material-ui/core/styles';
 import { Paper, TextField, Button, Typography } from '@material-ui/core';
@@ -73,6 +73,11 @@ function Login({ login, alert }) {
       login(email, password);
     }
   };
+
+  //Redirect if logged
+  if (localStorage.token) {
+    return <Redirect to='/profile' />;
+  }
 
   return (
     <div className={classes.body}>
