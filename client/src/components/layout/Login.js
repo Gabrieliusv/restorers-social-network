@@ -13,11 +13,15 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    [theme.breakpoints.down('xs')]: {
+      minHeight: 'calc(100vh - 56px)'
+    }
   },
   paper: {
+    margin: 10,
     padding: 20,
-    width: 350
+    maxWidth: 350
   },
   textLogin: {
     marginBottom: 15
