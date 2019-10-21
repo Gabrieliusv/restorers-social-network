@@ -40,12 +40,12 @@ function Landing(props) {
   return (
     <div className={classes.body}>
       <Paper className={classes.textPaper}>
-        <Typography variant='h3' color='primary'>
+        <Typography variant='h3' color='secondary'>
           MENO RESTAURATORIAI
         </Typography>
         <Typography
           variant='body1'
-          color='primary'
+          color='secondary'
           className={classes.aboutText}
         >
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam tortor

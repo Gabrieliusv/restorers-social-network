@@ -126,7 +126,7 @@ function Login({ login, alert }) {
         <Button
           className={classes.buttonLogin}
           variant='contained'
-          color='secondary'
+          color='primary'
           onClick={handleLogin}
         >
           Log In
@@ -142,7 +142,7 @@ function Login({ login, alert }) {
           <Button
             className={classes.buttonSignup}
             variant='contained'
-            color='primary'
+            color='secondary'
           >
             <Link to='/signup' className={classes.link}>
               Registruotis

@@ -64,7 +64,7 @@ function Navbar() {
 
   return (
     <div className={classes.root}>
-      <AppBar position='static'>
+      <AppBar position='static' color='secondary'>
         <Toolbar>
           <Typography variant='h5' className={classes.title}>
             MENO RESTAURATORIAI
