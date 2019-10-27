@@ -14,6 +14,8 @@ import Navbar from './components/layout/Navbar';
 import Login from './components/layout/Login';
 import Signup from './components/layout/Signup';
 import UserNavbar from './components/layout/UserNavbar';
+import CreateProfile from './components/layout/CreateProfile';
+import EditProfile from './components/layout/EditProfile';
 
 let App = ({ isAuthenticated }) => {
   useEffect(() => {
@@ -35,6 +37,8 @@ let App = ({ isAuthenticated }) => {
         <Route exact path='/login' component={Login} />
         <Route exact path='/signup' component={Signup} />
         <PrivateRoute exact path='/profile' component={Profile} />
+        <PrivateRoute exact path='/profile/create' component={CreateProfile} />
+        <PrivateRoute exact path='/profile/edit' component={EditProfile} />
       </Switch>
     </Router>
   );

@@ -130,7 +130,7 @@ const Signup = ({
             variant='outlined'
           />
           <TextField
-            error={requiredField.email === '' || !emailValidation}
+            error={!emailValidation}
             className={classes.textField}
             label='Email'
             onChange={e => handleChange(e)}
@@ -141,7 +141,7 @@ const Signup = ({
             variant='outlined'
             fullWidth
           />
-          {emailValidation || requiredField.email === '' ? null : (
+          {emailValidation ? null : (
             <Typography
               variant='subtitle2'
               color='error'

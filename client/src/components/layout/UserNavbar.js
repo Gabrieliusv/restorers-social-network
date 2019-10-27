@@ -125,13 +125,9 @@ function Navbar({ logout }) {
               vertical: 'top',
               horizontal: 'right'
             }}
-            keepMounted
-            transformOrigin={{
-              vertical: 'top',
-              horizontal: 'right'
-            }}
             open={open}
             onClose={handleClose}
+            onClick={handleClose}
           >
             <MenuItem className={classes.menuItemHidden}>
               <Link to='/' className={classes.menuItem__link}>

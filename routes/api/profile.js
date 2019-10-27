@@ -82,6 +82,12 @@ router.post(
         .isEmpty(),
       check('city', 'City is required')
         .not()
+        .isEmpty(),
+      check('phoneNum', 'Phone number is required')
+        .not()
+        .isEmpty(),
+      check('email', 'Email is required')
+        .not()
         .isEmpty()
     ]
   ],
@@ -99,12 +105,6 @@ router.post(
         .json({ errors: [{ msg: req.fileValidationError }] });
     }
 
-    if (!req.file) {
-      return res
-        .status(400)
-        .json({ errors: [{ msg: 'Please upload a profile image' }] });
-    }
-
     const {
       firstName,
       lastName,
@@ -113,48 +113,66 @@ router.post(
       degree,
       restorationCategory,
       experience,
-      city
+      city,
+      phoneNum,
+      email
     } = req.body;
 
     // Build Profile object
-    const profileFields = {};
-    profileFields.user = req.user.id;
-    profileFields.firstName = firstName;
-    profileFields.lastName = lastName;
-    profileFields.specialization = specialization;
-    profileFields.about = about;
-    profileFields.degree = degree;
-    profileFields.restorationCategory = restorationCategory;
-    profileFields.experience = experience;
-    profileFields.city = city;
-    profileFields.profileImg = {
-      fileName: req.file.filename,
-      filePath: `/uploads/${req.file.filename}`
+    const profileFields = {
+      user: req.user.id,
+      firstName,
+      lastName,
+      specialization,
+      about,
+      degree,
+      restorationCategory,
+      experience,
+      city,
+      phoneNum,
+      email
     };
 
     try {
       let profile = await Profile.findOne({ user: req.user.id });
 
+      if (!req.file && !profile) {
+        return res
+          .status(400)
+          .json({ errors: [{ msg: 'Please upload a profile image' }] });
+      } else if (!profile) {
+        profileFields.profileImg = {
+          fileName: req.file.filename,
+          filePath: `/uploads/${req.file.filename}`
+        };
+      }
+
       //Update profile
       if (profile) {
-        //delete old profile image
+        if (req.file) {
+          profileFields.profileImg = {
+            fileName: req.file.filename,
+            filePath: `/uploads/${req.file.filename}`
+          };
+          //delete old profile image
 
-        if (process.env.NODE_ENV === 'production') {
-          fs.unlink(
-            `./client/build/uploads/${profile.profileImg.fileName}`,
-            err => {
-              if (err) throw err;
-              console.log(`${profile.profileImg.filePath} was deleted`);
-            }
-          );
-        } else {
-          fs.unlink(
-            `./client/public/uploads/${profile.profileImg.fileName}`,
-            err => {
-              if (err) throw err;
-              console.log(`${profile.profileImg.filePath} was deleted`);
-            }
-          );
+          if (process.env.NODE_ENV === 'production') {
+            fs.unlink(
+              `./client/build/uploads/${profile.profileImg.fileName}`,
+              err => {
+                if (err) throw err;
+                console.log(`${profile.profileImg.filePath} was deleted`);
+              }
+            );
+          } else {
+            fs.unlink(
+              `./client/public/uploads/${profile.profileImg.fileName}`,
+              err => {
+                if (err) throw err;
+                console.log(`${profile.profileImg.filePath} was deleted`);
+              }
+            );
+          }
         }
 
         profile = await Profile.findOneAndUpdate(

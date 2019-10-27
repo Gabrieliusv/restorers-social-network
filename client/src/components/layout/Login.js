@@ -70,7 +70,7 @@ function Login({ login, alert }) {
   };
 
   const handleLogin = () => {
-    const isEmpty = Object.values(formData).some(x => x === '');
+    const isEmpty = Object.values(formData).some(x => x.trim().length === 0);
     if (isEmpty) {
       setRequiredField(formData);
     } else {

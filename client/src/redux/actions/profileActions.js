@@ -29,7 +29,7 @@ export const createProfile = (formData, update) => async dispatch => {
   try {
     const config = {
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'multipart/form-data'
       }
     };
 
@@ -40,11 +40,18 @@ export const createProfile = (formData, update) => async dispatch => {
       payload: res.data
     });
 
+    dispatch(removeAlert());
+
     if (update) {
-      dispatch(removeAlert());
-      dispatch(setAlert('Profile updated!', 'secondary'));
+      dispatch(setAlert('Profile updated!', 'primary'));
     }
   } catch (err) {
+    const errors = err.response.data.errors;
+    if (errors) {
+      dispatch(removeAlert());
+      errors.forEach(error => dispatch(setAlert(error.msg, 'error')));
+    }
+
     dispatch({
       type: PROFILE_ERROR,
       payload: { msg: err.response.statusText, status: err.response.status }

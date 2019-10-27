@@ -5,18 +5,17 @@ const ProfileSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'user'
   },
-  location: {
-    type: String
-  },
-  bio: {
-    type: String
-  },
-  social: {
-    youtube: { type: String },
-    twitter: { type: String },
-    facebook: { type: String },
-    instagram: { type: String }
-  },
+  firstName: { type: String, required: true },
+  lastName: { type: String, required: true },
+  specialization: { type: String, required: true },
+  about: { type: String, required: true },
+  degree: { type: String, required: true },
+  restorationCategory: { type: String, required: true },
+  experience: { type: String, required: true },
+  city: { type: String, required: true },
+  profileImg: { type: Object, required: true },
+  phoneNum: { type: String, required: true },
+  email: { type: String, required: true },
   date: {
     type: Date,
     default: Date.now
