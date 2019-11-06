@@ -146,7 +146,12 @@ function Navbar({ logout }) {
             </MenuItem>
             <MenuItem className={classes.menuItem}>
               <Link to='/profile' className={classes.menuItem__link}>
-                Profile
+                Profilis
+              </Link>
+            </MenuItem>
+            <MenuItem className={classes.menuItem}>
+              <Link to='/newBlogPost' className={classes.menuItem__link}>
+                Rašyti bloga
               </Link>
             </MenuItem>
             <MenuItem className={classes.logout} onClick={logout}>

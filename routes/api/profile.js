@@ -26,30 +26,6 @@ router.get('/me', auth, async (req, res) => {
   }
 });
 
-//@route POST api/profile/picture
-//@desc Upload user profile picture
-//@access Private
-router.post('/picture', auth, upload, async (req, res) => {
-  console.log(req.file);
-  if (req.fileValidationError) {
-    return res.status(400).json({ errors: req.fileValidationError });
-  }
-
-  if (!req.file) {
-    return res.send('Please upload a file');
-  }
-
-  try {
-    return res.json({
-      fileName: req.file.filename,
-      filePath: `/uploads/${req.file.filename}`
-    });
-  } catch (error) {
-    console.error(err.message);
-    res.status(500).send('Server error');
-  }
-});
-
 //@route POST api/profile
 //@desc Create or update user profile
 //@access Private
@@ -92,8 +68,6 @@ router.post(
     ]
   ],
   async (req, res) => {
-    console.log(req.file);
-    console.log(req.body);
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
@@ -161,7 +135,6 @@ router.post(
               `./client/build/uploads/${profile.profileImg.fileName}`,
               err => {
                 if (err) throw err;
-                console.log(`${profile.profileImg.filePath} was deleted`);
               }
             );
           } else {
@@ -169,7 +142,6 @@ router.post(
               `./client/public/uploads/${profile.profileImg.fileName}`,
               err => {
                 if (err) throw err;
-                console.log(`${profile.profileImg.filePath} was deleted`);
               }
             );
           }

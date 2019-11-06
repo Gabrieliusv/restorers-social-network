@@ -106,6 +106,10 @@ const EditProfile = ({
   };
 
   const handleUploadImg = e => {
+    if (e.target.files[0] === undefined) {
+      return;
+    }
+
     const img = URL.createObjectURL(e.target.files[0]);
     setProfileImg(img);
     setFormData({
