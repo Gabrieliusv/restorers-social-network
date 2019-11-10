@@ -14,9 +14,9 @@ import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import {
   createProfile,
   getCurrentProfile
-} from '../../redux/actions/profileActions';
-import Alert from './Alert';
-import { removeAlert } from '../../redux/actions/alertActions';
+} from '../../../redux/actions/profileActions';
+import Alert from '../Alert';
+import { removeAlert } from '../../../redux/actions/alertActions';
 
 const useStyles = makeStyles(theme => ({
   body: {
@@ -83,7 +83,7 @@ const EditProfile = ({
     city: '',
     phoneNum: '',
     email: '',
-    profileImg: ''
+    img: ''
   });
 
   useEffect(() => {
@@ -163,7 +163,7 @@ const EditProfile = ({
                   <input
                     hidden
                     type='file'
-                    name='profileImg'
+                    name='img'
                     onChange={handleUploadImg}
                   />
                 </Button>

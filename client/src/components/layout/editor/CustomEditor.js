@@ -1,11 +1,10 @@
-import React, { useState, useRef } from 'react';
+import React, { useRef } from 'react';
 import Toolbar from './Toolbar';
-import { Editor, EditorState } from 'draft-js';
+import { Editor } from 'draft-js';
 import 'draft-js/dist/Draft.css';
 import './editor.css';
 
-const CustomEditor = () => {
-  const [editorState, setEditorState] = useState(EditorState.createEmpty());
+const CustomEditor = ({ editorState, setEditorState }) => {
   const editor = useRef();
 
   //custom block styles

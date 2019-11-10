@@ -5,8 +5,9 @@ import { Paper, Grid, TextField, Typography, Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
-import { createProfile } from '../../redux/actions/profileActions';
-import Alert from './Alert';
+import { createProfile } from '../../../redux/actions/profileActions';
+import { removeAlert } from '../../../redux/actions/alertActions';
+import Alert from '../Alert';
 
 const useStyles = makeStyles(theme => ({
   body: {
@@ -51,7 +52,8 @@ const useStyles = makeStyles(theme => ({
 const CreateProfile = ({
   createProfile,
   history,
-  profile: { loading, profile }
+  profile: { loading, profile },
+  removeAlert
 }) => {
   const classes = useStyles();
   const [requiredField, setRequiredField] = useState(false);
@@ -67,7 +69,7 @@ const CreateProfile = ({
     city: '',
     phoneNum: '',
     email: '',
-    profileImg: ''
+    img: ''
   });
 
   useEffect(() => {
@@ -107,7 +109,7 @@ const CreateProfile = ({
       }
 
       createProfile(form);
-      setRequiredField(false);
+      removeAlert();
     }
   };
 
@@ -142,7 +144,7 @@ const CreateProfile = ({
                 <input
                   hidden
                   type='file'
-                  name='profileImg'
+                  name='img'
                   onChange={handleUploadImg}
                 />
               </Button>
@@ -304,5 +306,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { createProfile }
+  { createProfile, removeAlert }
 )(CreateProfile);

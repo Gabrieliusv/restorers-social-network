@@ -128,8 +128,8 @@ router.post(
             fileName: req.file.filename,
             filePath: `/uploads/${req.file.filename}`
           };
-          //delete old profile image
 
+          //delete old profile image
           if (process.env.NODE_ENV === 'production') {
             fs.unlink(
               `./client/build/uploads/${profile.profileImg.fileName}`,

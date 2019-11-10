@@ -10,9 +10,9 @@ import {
   TextField,
   Button,
   Dialog,
-  DialogTitle
+  DialogTitle,
+  useMediaQuery
 } from '@material-ui/core';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 const useStyles = makeStyles(theme => ({
   body: {
