@@ -18,8 +18,8 @@ const fileFilter = (req, file, cb) => {
 const storage = multer.diskStorage({
   destination:
     process.env.NODE_ENV === 'production'
-      ? './client/build/uploads'
-      : './client/public/uploads',
+      ? './client/build/temp'
+      : './client/public/temp',
   filename: function(req, file, cb) {
     crypto.pseudoRandomBytes(16, function(err, raw) {
       if (err) return cb(err);
