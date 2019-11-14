@@ -7,6 +7,12 @@
   font-weight: 300;
 }
 
+.ViewEditorWrapper {
+  margin: 20px;
+  font-size: 17px;
+  font-weight: 300;
+}
+
 .Editor--hide-placeholder .public-DraftEditorPlaceholder-root {
   display: none;
 }
