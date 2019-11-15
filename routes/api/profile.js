@@ -1,28 +1,28 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const auth = require('../../middleware/auth');
-const { check, validationResult } = require('express-validator');
-const upload = require('../../middleware/upload');
-const fs = require('fs');
+const auth = require("../../middleware/auth");
+const { check, validationResult } = require("express-validator");
+const upload = require("../../middleware/upload");
+const fs = require("fs");
 
-const Profile = require('../../models/Profile');
-const User = require('../../models/User');
+const Profile = require("../../models/Profile");
+const User = require("../../models/User");
 
 //@route GET api/profile/me
 //@desc Get current users profile
 //@access Private
-router.get('/me', auth, async (req, res) => {
+router.get("/me", auth, async (req, res) => {
   try {
     const profile = await Profile.findOne({ user: req.user.id });
 
     if (!profile) {
-      return res.status(404).json({ msg: 'There is no profile for this user' });
+      return res.status(404).json({ msg: "There is no profile for this user" });
     }
 
     res.json(profile);
   } catch (err) {
     console.error(err.message);
-    res.status(500).send('Server error');
+    res.status(500).send("Server error");
   }
 });
 
@@ -30,39 +30,39 @@ router.get('/me', auth, async (req, res) => {
 //@desc Create or update user profile
 //@access Private
 router.post(
-  '/',
+  "/",
   [
     auth,
     upload,
     [
-      check('firstName', 'First name is required')
+      check("firstName", "First name is required")
         .not()
         .isEmpty(),
-      check('lastName', 'Last name is required')
+      check("lastName", "Last name is required")
         .not()
         .isEmpty(),
-      check('specialization', 'Specialization is required')
+      check("specialization", "Specialization is required")
         .not()
         .isEmpty(),
-      check('about', 'About me is required')
+      check("about", "About me is required")
         .not()
         .isEmpty(),
-      check('degree', 'Degree is required')
+      check("degree", "Degree is required")
         .not()
         .isEmpty(),
-      check('restorationCategory', 'Restoration category is required')
+      check("restorationCategory", "Restoration category is required")
         .not()
         .isEmpty(),
-      check('experience', 'Experience is required')
+      check("experience", "Experience is required")
         .not()
         .isEmpty(),
-      check('city', 'City is required')
+      check("city", "City is required")
         .not()
         .isEmpty(),
-      check('phoneNum', 'Phone number is required')
+      check("phoneNum", "Phone number is required")
         .not()
         .isEmpty(),
-      check('email', 'Email is required')
+      check("email", "Email is required")
         .not()
         .isEmpty()
     ]
@@ -113,7 +113,7 @@ router.post(
       if (!req.file && !profile) {
         return res
           .status(400)
-          .json({ errors: [{ msg: 'Please upload a profile image' }] });
+          .json({ errors: [{ msg: "Please upload a profile image" }] });
       } else if (!profile) {
         profileFields.profileImg = {
           fileName: req.file.filename,
@@ -130,20 +130,32 @@ router.post(
           };
 
           //delete old profile image
-          if (process.env.NODE_ENV === 'production') {
-            fs.unlink(
-              `./client/build/uploads/${profile.profileImg.fileName}`,
-              err => {
-                if (err) throw err;
-              }
-            );
+          if (process.env.NODE_ENV === "production") {
+            if (
+              fs.existsSync(
+                `./client/build/uploads/${profile.profileImg.fileName}`
+              )
+            ) {
+              fs.unlink(
+                `./client/build/uploads/${profile.profileImg.fileName}`,
+                err => {
+                  if (err) throw err;
+                }
+              );
+            }
           } else {
-            fs.unlink(
-              `./client/public/uploads/${profile.profileImg.fileName}`,
-              err => {
-                if (err) throw err;
-              }
-            );
+            if (
+              fs.existsSync(
+                `./client/public/uploads/${profile.profileImg.fileName}`
+              )
+            ) {
+              fs.unlink(
+                `./client/public/uploads/${profile.profileImg.fileName}`,
+                err => {
+                  if (err) throw err;
+                }
+              );
+            }
           }
         }
 
@@ -163,7 +175,7 @@ router.post(
       res.json(profile);
     } catch (err) {
       console.error(err.message);
-      res.status(500).send('server Error');
+      res.status(500).send("server Error");
     }
   }
 );
@@ -171,17 +183,17 @@ router.post(
 //@route DELETE api/profile
 //@desc Delete current users profile
 //@access Private
-router.delete('/', auth, async (req, res) => {
+router.delete("/", auth, async (req, res) => {
   try {
     //Remove profile
     await Profile.findOneAndDelete({ user: req.user.id });
     //Remove user
     await User.findOneAndDelete({ _id: req.user.id });
 
-    res.json({ msg: 'User deleted' });
+    res.json({ msg: "User deleted" });
   } catch (err) {
     console.error(err.message);
-    res.status(500).send('Server error');
+    res.status(500).send("Server error");
   }
 });
 
