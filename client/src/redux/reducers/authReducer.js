@@ -7,10 +7,10 @@ import {
   LOGIN_FAIL,
   LOGOUT,
   ACCOUNT_DELETED
-} from '../actions/types';
+} from "../actions/types";
 
 const initialState = {
-  token: localStorage.getItem('token'),
+  token: localStorage.getItem("token"),
   isAuthenticated: false,
   loading: true,
   user: null
@@ -31,8 +31,7 @@ export default function(state = initialState, action) {
       return {
         ...state,
         ...payload,
-        isAuthenticated: true,
-        loading: false
+        isAuthenticated: true
       };
     case NO_TOKEN:
     case AUTH_ERROR:

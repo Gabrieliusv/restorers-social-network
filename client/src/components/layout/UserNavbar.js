@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import { logout } from "../../redux/actions/authActions";
 import { Link, NavLink } from "react-router-dom";
@@ -11,8 +11,7 @@ import {
   IconButton,
   Menu,
   MenuItem,
-  Hidden,
-  Badge
+  Hidden
 } from "@material-ui/core";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import ExitIcon from "@material-ui/icons/ExitToApp";
