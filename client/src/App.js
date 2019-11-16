@@ -1,22 +1,25 @@
-import React, { useEffect } from 'react';
-import { Provider, connect } from 'react-redux';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import store from './redux/store';
-import './App.css';
-import { loadUser, noToken } from './redux/actions/authActions';
-import PrivateRoute from './components/routing/PrivateRoute';
-import Landing from './components/layout/Landing';
-import Profile from './components/layout/profile/Profile';
-import Blog from './components/layout/blog/Blog';
-import About from './components/layout/About';
-import Restauratoriai from './components/layout/Restauratoriai';
-import Navbar from './components/layout/Navbar';
-import Login from './components/layout/Login';
-import Signup from './components/layout/Signup';
-import UserNavbar from './components/layout/UserNavbar';
-import CreateProfile from './components/layout/profile/CreateProfile';
-import EditProfile from './components/layout/profile/EditProfile';
-import CreateBlogPost from './components/layout/blog/CreateBlogPost';
+import React, { useEffect } from "react";
+import { Provider, connect } from "react-redux";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import store from "./redux/store";
+import "./App.css";
+import { loadUser, noToken } from "./redux/actions/authActions";
+import PrivateRoute from "./components/routing/PrivateRoute";
+import AdminRoute from "./components/routing/AdminRoute";
+import Landing from "./components/layout/Landing";
+import Profile from "./components/layout/profile/Profile";
+import Blog from "./components/layout/blog/Blog";
+import About from "./components/layout/About";
+import Restauratoriai from "./components/layout/Restauratoriai";
+import Navbar from "./components/layout/Navbar";
+import Login from "./components/layout/Login";
+import Signup from "./components/layout/Signup";
+import UserNavbar from "./components/layout/UserNavbar";
+import CreateProfile from "./components/layout/profile/CreateProfile";
+import EditProfile from "./components/layout/profile/EditProfile";
+import CreateBlogPost from "./components/layout/blog/CreateBlogPost";
+import NewMembers from "./components/layout/adminPanel/NewMembers";
+import SubmittedBlogPosts from "./components/layout/adminPanel/SubmittedBlogPosts";
 
 let App = ({ isAuthenticated }) => {
   useEffect(() => {
@@ -41,6 +44,12 @@ let App = ({ isAuthenticated }) => {
         <PrivateRoute exact path='/profile/create' component={CreateProfile} />
         <PrivateRoute exact path='/profile/edit' component={EditProfile} />
         <PrivateRoute exact path='/newBlogPost' component={CreateBlogPost} />
+        <AdminRoute exact path='/newMembers' component={NewMembers} />
+        <AdminRoute
+          exact
+          path='/SubmittedBlogPosts'
+          component={SubmittedBlogPosts}
+        />
       </Switch>
     </Router>
   );
