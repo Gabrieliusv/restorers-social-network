@@ -1,10 +1,11 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const BlogSchema = new mongoose.Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'user'
+    ref: "user"
   },
+  author: { type: Object, required: true },
   subject: { type: String, required: true },
   about: { type: String, required: true },
   img: { type: Object, required: true },
@@ -14,4 +15,4 @@ const BlogSchema = new mongoose.Schema({
   date: { type: Date, default: Date.now }
 });
 
-module.exports = Blog = mongoose.model('blog', BlogSchema);
+module.exports = Blog = mongoose.model("blog", BlogSchema);

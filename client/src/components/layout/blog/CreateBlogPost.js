@@ -330,7 +330,7 @@ const CreateBlogPost = ({
                 color='primary'
                 onClick={handlePreview}
               >
-                Peržiurėti
+                Peržiūrėti
               </Button>
               <Button
                 className={classes.button}
@@ -371,7 +371,7 @@ const CreateBlogPost = ({
           />
         </DialogContent>
         <DialogActions>
-          <Button autoFocus onClick={handlePreview} color='primary'>
+          <Button onClick={handlePreview} color='primary'>
             Uždaryti
           </Button>
         </DialogActions>

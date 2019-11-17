@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
+import { EditorState, convertFromRaw } from "draft-js";
 import {
   Paper,
   makeStyles,
   useTheme,
   Typography,
+  Box,
   useMediaQuery,
   Dialog,
   DialogContent,
@@ -32,6 +34,9 @@ const useStyles = makeStyles({
     objectFit: "cover",
     marginBottom: "10px"
   },
+  author: {
+    color: "grey"
+  },
   imageWrapper: {
     width: "100%",
     display: "flex",
@@ -52,7 +57,7 @@ const useStyles = makeStyles({
   }
 });
 
-const BlogPostPreview = ({ editorState, formData, blogImg, images }) => {
+const PreviewPost = ({ blogPost }) => {
   const classes = useStyles();
   const [imageIndex, setImageIndex] = useState(0);
   const [openPreview, setOpenPreview] = useState(false);
@@ -61,7 +66,7 @@ const BlogPostPreview = ({ editorState, formData, blogImg, images }) => {
 
   const handleImage = index => {
     setImageIndex(index);
-    togglePreview();
+    setOpenPreview(true);
   };
 
   const togglePreview = () => {
@@ -70,7 +75,7 @@ const BlogPostPreview = ({ editorState, formData, blogImg, images }) => {
 
   //Creates image preview
   const imgPreview = () => {
-    const preview = images.map((image, index) => (
+    const preview = blogPost.blogImages.map((image, index) => (
       <img
         key={index}
         className={classes.previewImg}
@@ -82,17 +87,39 @@ const BlogPostPreview = ({ editorState, formData, blogImg, images }) => {
     return preview;
   };
 
+  const convertState = () => {
+    const editorState = EditorState.createWithContent(
+      convertFromRaw(JSON.parse(blogPost.blogText))
+    );
+    return editorState;
+  };
+
   return (
     <div className={classes.body}>
       <Paper className={classes.paper}>
-        {blogImg && (
-          <img src={blogImg} alt='theme' className={classes.themeImg} />
-        )}
-        <Typography variant='h5' align='center'>
-          {formData.subject}
+        <img
+          src={blogPost.img.filePath}
+          alt='theme'
+          className={classes.themeImg}
+        />
+        <Typography component='div'>
+          <Box fontSize='h5.fontSize' textAlign='center'>
+            {blogPost.subject}
+          </Box>
+          <Box
+            className={classes.author}
+            fontSize='h5.fontSize'
+            fontFamily='Monospace'
+            textAlign='right'
+          >
+            {`${blogPost.author.firstName} ${blogPost.author.lastName}`}
+          </Box>
+          <Box fontSize='h6.fontSize' fontFamily='Monospace' textAlign='right'>
+            {blogPost.date.slice(0, 10)}
+          </Box>
         </Typography>
-        <ViewOnlyEditor editorState={editorState} />
-        {images.length === 0 ? null : (
+        <ViewOnlyEditor editorState={convertState()} />
+        {blogPost.blogImages.length === 0 ? null : (
           <div className={classes.imageWrapper}>{imgPreview()}</div>
         )}
       </Paper>
@@ -104,10 +131,10 @@ const BlogPostPreview = ({ editorState, formData, blogImg, images }) => {
         aria-labelledby='image-preview'
       >
         <DialogContent>
-          {images.length === 0 ? null : (
+          {blogPost.blogImages.length === 0 ? null : (
             <img
               className={classes.dialogImg}
-              src={images[imageIndex].filePath}
+              src={blogPost.blogImages[imageIndex].filePath}
               alt='preview'
             />
           )}
@@ -122,10 +149,8 @@ const BlogPostPreview = ({ editorState, formData, blogImg, images }) => {
   );
 };
 
-BlogPostPreview.propTypes = {
-  editorState: PropTypes.object.isRequired,
-  formData: PropTypes.object.isRequired,
-  blogImg: PropTypes.string.isRequired
+PreviewPost.propTypes = {
+  blogPost: PropTypes.object.isRequired
 };
 
-export default BlogPostPreview;
+export default PreviewPost;

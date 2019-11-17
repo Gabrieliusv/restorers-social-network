@@ -123,7 +123,9 @@ const NewMembers = ({ auth: { isAuthenticated } }) => {
   );
 };
 
-NewMembers.propTypes = {};
+NewMembers.propTypes = {
+  auth: PropTypes.object.isRequired
+};
 
 const mapStateToPops = state => ({
   auth: state.auth
