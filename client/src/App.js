@@ -10,7 +10,7 @@ import Landing from "./components/layout/Landing";
 import Profile from "./components/layout/profile/Profile";
 import Blog from "./components/layout/blog/Blog";
 import About from "./components/layout/About";
-import Restauratoriai from "./components/layout/Restauratoriai";
+import Restauratoriai from "./components/layout/restauratoriai/Restauratoriai";
 import Navbar from "./components/layout/Navbar";
 import Login from "./components/layout/Login";
 import Signup from "./components/layout/Signup";
@@ -20,6 +20,7 @@ import EditProfile from "./components/layout/profile/EditProfile";
 import CreateBlogPost from "./components/layout/blog/CreateBlogPost";
 import NewMembers from "./components/layout/adminPanel/NewMembers";
 import SubmittedBlogPosts from "./components/layout/adminPanel/SubmittedBlogPosts";
+import BlogPost from "./components/layout/blog/BlogPost";
 
 let App = ({ isAuthenticated }) => {
   useEffect(() => {
@@ -37,6 +38,7 @@ let App = ({ isAuthenticated }) => {
         <Route exact path='/' component={Landing} />
         <Route exact path='/restauratoriai' component={Restauratoriai} />
         <Route exact path='/blog' component={Blog} />
+        <Route exact path='/blog/:id' component={BlogPost} />
         <Route exact path='/about' component={About} />
         <Route exact path='/login' component={Login} />
         <Route exact path='/signup' component={Signup} />

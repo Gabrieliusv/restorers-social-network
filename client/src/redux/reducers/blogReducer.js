@@ -3,10 +3,12 @@ import {
   CLEAR_BLOG,
   BLOG_ERROR,
   DELETE_BLOG_IMG,
-  BLOG_SUCCESS
-} from '../actions/types';
+  BLOG_SUCCESS,
+  BLOG_POSTS
+} from "../actions/types";
 
 const initialState = {
+  blogPosts: [],
   blogImages: [],
   loading: true,
   error: [],
@@ -17,6 +19,12 @@ export default function(state = initialState, action) {
   const { type, payload } = action;
 
   switch (type) {
+    case BLOG_POSTS:
+      return {
+        ...state,
+        blogPosts: payload,
+        loading: false
+      };
     case BLOG_IMG:
       return {
         ...state,
@@ -36,8 +44,8 @@ export default function(state = initialState, action) {
       };
     case CLEAR_BLOG:
       return {
+        ...state,
         blogImages: [],
-        loading: true,
         error: [],
         blogSaved: false
       };

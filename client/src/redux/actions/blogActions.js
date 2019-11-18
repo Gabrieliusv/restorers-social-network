@@ -1,22 +1,40 @@
-import axios from 'axios';
-import { setAlert, removeAlert } from './alertActions';
+import axios from "axios";
+import { setAlert, removeAlert } from "./alertActions";
 import {
   BLOG_IMG,
   CLEAR_BLOG,
   BLOG_ERROR,
   DELETE_BLOG_IMG,
-  BLOG_SUCCESS
-} from './types';
+  BLOG_SUCCESS,
+  BLOG_POSTS
+} from "./types";
+
+//Get Blog Posts
+export const getBlogPosts = () => async dispatch => {
+  try {
+    const res = await axios.get("/api/blog");
+
+    dispatch({
+      type: BLOG_POSTS,
+      payload: res.data
+    });
+  } catch (err) {
+    dispatch({
+      type: BLOG_ERROR,
+      payload: { msg: err.response.data.msg, status: err.response.status }
+    });
+  }
+};
 
 //Upload blog image
 export const uploadBlogImg = img => async dispatch => {
   try {
     const config = {
       headers: {
-        'Content-Type': 'multipart/form-data'
+        "Content-Type": "multipart/form-data"
       }
     };
-    const res = await axios.post('/api/blog/image', img, config);
+    const res = await axios.post("/api/blog/image", img, config);
 
     dispatch({
       type: BLOG_IMG,
@@ -26,7 +44,7 @@ export const uploadBlogImg = img => async dispatch => {
     const errors = err.response.data.errors;
     if (errors) {
       dispatch(removeAlert());
-      errors.forEach(error => dispatch(setAlert(error.msg, 'error')));
+      errors.forEach(error => dispatch(setAlert(error.msg, "error")));
     }
 
     dispatch({
@@ -58,11 +76,11 @@ export const createPost = formData => async dispatch => {
   try {
     const config = {
       headers: {
-        'Content-Type': 'multipart/form-data'
+        "Content-Type": "multipart/form-data"
       }
     };
 
-    const res = await axios.post('/api/blog', formData, config);
+    const res = await axios.post("/api/blog", formData, config);
 
     dispatch({
       type: BLOG_SUCCESS,
@@ -72,7 +90,7 @@ export const createPost = formData => async dispatch => {
     const errors = err.response.data.errors;
     if (errors) {
       dispatch(removeAlert());
-      errors.forEach(error => dispatch(setAlert(error.msg, 'error')));
+      errors.forEach(error => dispatch(setAlert(error.msg, "error")));
     }
 
     dispatch({

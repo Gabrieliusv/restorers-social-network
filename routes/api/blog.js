@@ -10,6 +10,19 @@ const Blog = require("../../models/Blog");
 const User = require("../../models/User");
 const Profile = require("../../models/Profile");
 
+//@route Get api/blog
+//@desc Get published blog posts
+//@access Public
+router.get("/", async (req, res) => {
+  try {
+    const posts = await Blog.find({ status: "published" });
+    res.json(posts);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server error");
+  }
+});
+
 //@route POST api/blog/image
 //@desc Upload blog picture
 //@access Private
