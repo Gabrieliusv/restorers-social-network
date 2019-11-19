@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import React, { useState, useEffect } from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
 import {
   Paper,
   Grid,
@@ -8,21 +8,21 @@ import {
   Typography,
   Button,
   CircularProgress
-} from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
-import CloudUploadIcon from '@material-ui/icons/CloudUpload';
+} from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
+import CloudUploadIcon from "@material-ui/icons/CloudUpload";
 import {
   createProfile,
   getCurrentProfile
-} from '../../../redux/actions/profileActions';
-import Alert from '../Alert';
-import { removeAlert } from '../../../redux/actions/alertActions';
+} from "../../../redux/actions/profileActions";
+import Alert from "../Alert";
+import { removeAlert } from "../../../redux/actions/alertActions";
 
 const useStyles = makeStyles(theme => ({
   body: {
-    display: 'flex',
-    justifyContent: 'center',
-    padding: '50px 15px 0 15px'
+    display: "flex",
+    justifyContent: "center",
+    padding: "50px 15px 0 15px"
   },
   paper: {
     maxWidth: 700,
@@ -32,29 +32,29 @@ const useStyles = makeStyles(theme => ({
     marginTop: 15
   },
   profile__image__box: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center'
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center"
   },
   profile__image: {
-    width: '160px',
-    height: '160px',
-    borderRadius: '50%'
+    width: "160px",
+    height: "160px",
+    borderRadius: "50%"
   },
   profile__image__icon: {
-    width: '160px',
-    height: '160px',
-    color: '#2C3B4E'
+    width: "160px",
+    height: "160px",
+    color: "#2C3B4E"
   },
   profile__image__text: {
-    margin: '5px 20px'
+    margin: "5px 20px"
   },
   profile__image__upload: {
     marginTop: 10
   },
   buttonGroup: {
     marginTop: 10,
-    float: 'right'
+    float: "right"
   },
   buttonGroup__button: {
     margin: theme.spacing(1)
@@ -71,19 +71,19 @@ const EditProfile = ({
 }) => {
   const classes = useStyles();
   const [requiredField, setRequiredField] = useState(false);
-  const [profileImg, setProfileImg] = useState('');
+  const [profileImg, setProfileImg] = useState("");
   const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    specialization: '',
-    about: '',
-    degree: '',
-    restorationCategory: '',
-    experience: '',
-    city: '',
-    phoneNum: '',
-    email: '',
-    img: ''
+    firstName: "",
+    lastName: "",
+    specialization: "",
+    about: "",
+    degree: "",
+    restorationCategory: "",
+    experience: "",
+    city: "",
+    phoneNum: "",
+    email: "",
+    img: ""
   });
 
   useEffect(() => {
@@ -119,7 +119,7 @@ const EditProfile = ({
   };
 
   const handleCreate = () => {
-    const isEmpty = Object.values(formData).some(x => x === '');
+    const isEmpty = Object.values(formData).some(x => x === "");
     if (isEmpty) {
       setRequiredField(formData);
     } else {
@@ -171,7 +171,7 @@ const EditProfile = ({
                   variant='body2'
                   align='center'
                   className={classes.profile__image__text}
-                  color={requiredField.profileImg === '' ? 'error' : 'initial'}
+                  color={requiredField.img === "" ? "error" : "initial"}
                 >
                   Profilio nuotrauka neturi užimti daugiau kaip 400kb 160x160px
                   bei būti jpeg/jpg/png formato.
@@ -182,7 +182,7 @@ const EditProfile = ({
               <Grid container spacing={1}>
                 <Grid item xs={12}>
                   <TextField
-                    error={requiredField.firstName === ''}
+                    error={requiredField.firstName === ""}
                     label='Vardas'
                     name='firstName'
                     value={formData.firstName}
@@ -193,7 +193,7 @@ const EditProfile = ({
                 </Grid>
                 <Grid item xs={12}>
                   <TextField
-                    error={requiredField.lastName === ''}
+                    error={requiredField.lastName === ""}
                     label='Pavardė'
                     name='lastName'
                     value={formData.lastName}
@@ -204,7 +204,7 @@ const EditProfile = ({
                 </Grid>
                 <Grid item xs={12}>
                   <TextField
-                    error={requiredField.city === ''}
+                    error={requiredField.city === ""}
                     label='Miestas'
                     name='city'
                     value={formData.city}
@@ -217,7 +217,7 @@ const EditProfile = ({
             </Grid>
             <Grid item xs={12}>
               <TextField
-                error={requiredField.about === ''}
+                error={requiredField.about === ""}
                 label='Apie mane'
                 name='about'
                 value={formData.about}
@@ -230,7 +230,7 @@ const EditProfile = ({
             </Grid>
             <Grid item xs={12} sm={6}>
               <TextField
-                error={requiredField.specialization === ''}
+                error={requiredField.specialization === ""}
                 label='Specializacijos sritis'
                 name='specialization'
                 value={formData.specialization}
@@ -241,7 +241,7 @@ const EditProfile = ({
             </Grid>
             <Grid item xs={12} sm={6}>
               <TextField
-                error={requiredField.restorationCategory === ''}
+                error={requiredField.restorationCategory === ""}
                 label='Restauratoriaus kategorija'
                 name='restorationCategory'
                 value={formData.restorationCategory}
@@ -252,7 +252,7 @@ const EditProfile = ({
             </Grid>
             <Grid item xs={12} sm={6}>
               <TextField
-                error={requiredField.degree === ''}
+                error={requiredField.degree === ""}
                 label='Išsilavinimas'
                 name='degree'
                 value={formData.degree}
@@ -263,7 +263,7 @@ const EditProfile = ({
             </Grid>
             <Grid item xs={12} sm={6}>
               <TextField
-                error={requiredField.experience === ''}
+                error={requiredField.experience === ""}
                 label='Patirtis'
                 name='experience'
                 value={formData.experience}
@@ -279,7 +279,7 @@ const EditProfile = ({
             </Grid>
             <Grid item xs={12} sm={6}>
               <TextField
-                error={requiredField.phoneNum === ''}
+                error={requiredField.phoneNum === ""}
                 label='Telefono numeris'
                 name='phoneNum'
                 value={formData.phoneNum}
@@ -290,7 +290,7 @@ const EditProfile = ({
             </Grid>
             <Grid item xs={12} sm={6}>
               <TextField
-                error={requiredField.email === ''}
+                error={requiredField.email === ""}
                 label='Elektroninis paštas'
                 name='email'
                 value={formData.email}
@@ -306,7 +306,7 @@ const EditProfile = ({
               className={classes.buttonGroup__button}
               variant='contained'
               color='primary'
-              onClick={() => history.push('/profile')}
+              onClick={() => history.push("/profile")}
             >
               Atgal
             </Button>
@@ -334,11 +334,12 @@ EditProfile.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  profile: state.profile.profile,
+  profile: state.profile.userProfile,
   auth: state.auth
 });
 
-export default connect(
-  mapStateToProps,
-  { createProfile, getCurrentProfile, removeAlert }
-)(EditProfile);
+export default connect(mapStateToProps, {
+  createProfile,
+  getCurrentProfile,
+  removeAlert
+})(EditProfile);

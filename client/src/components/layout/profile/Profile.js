@@ -1,75 +1,75 @@
-import React, { useEffect, Fragment } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { getCurrentProfile } from '../../../redux/actions/profileActions';
-import { Grid, Button, CircularProgress, Typography } from '@material-ui/core';
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
-import { makeStyles } from '@material-ui/core/styles';
+import React, { useEffect, Fragment } from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { getCurrentProfile } from "../../../redux/actions/profileActions";
+import { Grid, Button, CircularProgress, Typography } from "@material-ui/core";
+import AccountCircleIcon from "@material-ui/icons/AccountCircle";
+import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles(theme => ({
   profile: {
-    margin: '40px 5px 5px 0'
+    margin: "40px 5px 5px 0"
   },
   profile__image__box: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
-    padding: '30px',
-    [theme.breakpoints.down('sm')]: {
-      padding: '30px 5px 0 0'
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "flex-end",
+    padding: "30px",
+    [theme.breakpoints.down("sm")]: {
+      padding: "30px 5px 0 0"
     },
-    [theme.breakpoints.down('xs')]: {
-      justifyContent: 'center',
-      padding: '5px'
+    [theme.breakpoints.down("xs")]: {
+      justifyContent: "center",
+      padding: "5px"
     }
   },
   profile__image: {
-    width: '160px',
-    height: '160px',
-    borderRadius: '50%'
+    width: "160px",
+    height: "160px",
+    borderRadius: "50%"
   },
   profile__info: {
-    [theme.breakpoints.down('xs')]: {
-      textAlign: 'center'
+    [theme.breakpoints.down("xs")]: {
+      textAlign: "center"
     }
   },
   profile__buttonGroup: {
-    [theme.breakpoints.down('xs')]: {
-      display: 'flex',
-      justifyContent: 'center'
+    [theme.breakpoints.down("xs")]: {
+      display: "flex",
+      justifyContent: "center"
     }
   },
   loadingProfile: {
-    display: 'flex',
-    justifyContent: 'center'
+    display: "flex",
+    justifyContent: "center"
   },
   createProfile: {
-    display: 'flex',
-    alignItems: 'center',
-    flexDirection: 'column'
+    display: "flex",
+    alignItems: "center",
+    flexDirection: "column"
   }
 }));
 
 const Profile = ({
   getCurrentProfile,
   auth: { isAuthenticated },
-  profile: { profile, loading },
+  profile: { userProfile, loading },
   history
 }) => {
   const classes = useStyles();
 
   useEffect(() => {
-    if (!profile && isAuthenticated) {
+    if (!userProfile && isAuthenticated) {
       getCurrentProfile();
     }
-  }, [isAuthenticated, getCurrentProfile, profile]);
+  }, [isAuthenticated, getCurrentProfile, userProfile]);
 
   const noProfile = (
     <div className={classes.createProfile}>
       <AccountCircleIcon color='primary' className={classes.profile__image} />
       <Button
         variant='outlined'
-        onClick={() => history.push('/profile/create')}
+        onClick={() => history.push("/profile/create")}
       >
         Kurti Profilį
       </Button>
@@ -82,7 +82,7 @@ const Profile = ({
         <div className={classes.loadingProfile}>
           <CircularProgress />
         </div>
-      ) : !profile ? (
+      ) : !userProfile ? (
         noProfile
       ) : (
         <Fragment>
@@ -93,7 +93,7 @@ const Profile = ({
             <Grid item xs={12} sm={3} md={3}>
               <div className={classes.profile__image__box}>
                 <img
-                  src={profile.profileImg.filePath}
+                  src={userProfile.profileImg.filePath}
                   alt='Profile'
                   height='160'
                   width='160'
@@ -103,38 +103,38 @@ const Profile = ({
             </Grid>
             <Grid item xs={12} sm={8} md={7}>
               <div className={classes.profile__info}>
-                <h2>{`${profile.firstName} ${profile.lastName}`}</h2>
+                <h2>{`${userProfile.firstName} ${userProfile.lastName}`}</h2>
                 <p>
                   <b>Specializacijos sritis: </b>
-                  {profile.specialization}
+                  {userProfile.specialization}
                 </p>
-                <p>{profile.about}</p>
+                <p>{userProfile.about}</p>
                 <p>
-                  <b>Išsilavinimas:</b> {profile.degree}
+                  <b>Išsilavinimas:</b> {userProfile.degree}
                 </p>
                 <p>
                   <b>Restauratoriaus kategorija: </b>
-                  {profile.restorationCategory}
+                  {userProfile.restorationCategory}
                 </p>
                 <p>
-                  <b>Patirtis: </b> {profile.experience}
+                  <b>Patirtis: </b> {userProfile.experience}
                 </p>
                 <p>
-                  <b>Miestas:</b> {profile.city}
+                  <b>Miestas:</b> {userProfile.city}
                 </p>
                 <h3>Kontaktiniai duomenys</h3>
                 <p>
-                  <b>Telefono numeris:</b> {profile.phoneNum}
+                  <b>Telefono numeris:</b> {userProfile.phoneNum}
                 </p>
                 <p>
-                  <b>Elektroninis paštas:</b> {profile.email}
+                  <b>Elektroninis paštas:</b> {userProfile.email}
                 </p>
               </div>
               <div className={classes.profile__buttonGroup}>
                 <Button
                   variant='contained'
                   color='secondary'
-                  onClick={() => history.push('/profile/edit')}
+                  onClick={() => history.push("/profile/edit")}
                 >
                   Redaguoti profilį
                 </Button>
@@ -158,7 +158,4 @@ const mapStateToProps = state => ({
   auth: state.auth
 });
 
-export default connect(
-  mapStateToProps,
-  { getCurrentProfile }
-)(Profile);
+export default connect(mapStateToProps, { getCurrentProfile })(Profile);
