@@ -8,6 +8,27 @@ const fs = require("fs");
 const Profile = require("../../models/Profile");
 const User = require("../../models/User");
 
+//@route GET api/profile
+//@desc Get all profiles
+//@access Public
+router.get("/", async (req, res) => {
+  try {
+    const profiles = await Profile.find(
+      {},
+      { firstName: 1, lastName: 1, specialization: 1, profileImg: 1 }
+    );
+
+    if (!profiles) {
+      return res.status(404).json({ msg: "No profiles found" });
+    }
+
+    res.json(profiles);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server error");
+  }
+});
+
 //@route GET api/profile/me
 //@desc Get current users profile
 //@access Private
@@ -17,6 +38,24 @@ router.get("/me", auth, async (req, res) => {
 
     if (!profile) {
       return res.status(404).json({ msg: "There is no profile for this user" });
+    }
+
+    res.json(profile);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server error");
+  }
+});
+
+//@route GET api/profile/:id
+//@desc Get profile by id
+//@access Public
+router.get("/:id", async (req, res) => {
+  try {
+    const profile = await Profile.findOne({ _id: req.params.id });
+
+    if (!profile) {
+      return res.status(404).json({ msg: "No profile found" });
     }
 
     res.json(profile);
