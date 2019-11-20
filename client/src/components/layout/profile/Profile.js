@@ -8,7 +8,7 @@ import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles(theme => ({
   profile: {
-    margin: "40px 5px 5px 0"
+    padding: "40px 5px"
   },
   profile__image__box: {
     display: "flex",

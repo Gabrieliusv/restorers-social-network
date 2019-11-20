@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from "axios";
 import {
   REGISTER_SUCCESS,
   REGISTER_FAIL,
@@ -8,10 +8,10 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAIL,
   LOGOUT,
-  CLEAR_PROFILE
-} from './types';
-import { setAlert, setLoginAlert, removeAlert } from './alertActions';
-import setAuthToken from '../../utils/setAuthToken';
+  CLEAR_USER_PROFILE
+} from "./types";
+import { setAlert, setLoginAlert, removeAlert } from "./alertActions";
+import setAuthToken from "../../utils/setAuthToken";
 
 //Load User
 export const loadUser = () => async dispatch => {
@@ -20,14 +20,14 @@ export const loadUser = () => async dispatch => {
   }
 
   try {
-    const res = await axios.get('/api/auth');
+    const res = await axios.get("/api/auth");
 
     dispatch({
       type: USER_LOADED,
       payload: res.data
     });
   } catch (err) {
-    localStorage.removeItem('token');
+    localStorage.removeItem("token");
 
     dispatch({
       type: AUTH_ERROR
@@ -44,14 +44,14 @@ export const register = ({
 }) => async dispatch => {
   const config = {
     headers: {
-      'Content-Type': 'application/json'
+      "Content-Type": "application/json"
     }
   };
 
   const body = JSON.stringify({ name, email, password, aboutMe });
 
   try {
-    const res = await axios.post('/api/users', body, config);
+    const res = await axios.post("/api/users", body, config);
 
     dispatch({
       type: REGISTER_SUCCESS,
@@ -62,7 +62,7 @@ export const register = ({
 
     if (errors) {
       dispatch(removeAlert());
-      errors.forEach(error => dispatch(setAlert(error.msg, 'error')));
+      errors.forEach(error => dispatch(setAlert(error.msg, "error")));
     }
 
     dispatch({
@@ -75,16 +75,16 @@ export const register = ({
 export const login = (email, password) => async dispatch => {
   const config = {
     headers: {
-      'Content-Type': 'application/json'
+      "Content-Type": "application/json"
     }
   };
 
   const body = JSON.stringify({ email, password });
 
   try {
-    const res = await axios.post('/api/auth', body, config);
+    const res = await axios.post("/api/auth", body, config);
 
-    localStorage.setItem('token', res.data.token);
+    localStorage.setItem("token", res.data.token);
     setAuthToken(localStorage.token);
 
     dispatch({
@@ -101,7 +101,7 @@ export const login = (email, password) => async dispatch => {
       errors.forEach(error => dispatch(setLoginAlert(error.msg)));
     }
 
-    localStorage.removeItem('token');
+    localStorage.removeItem("token");
 
     dispatch({
       type: LOGIN_FAIL
@@ -111,9 +111,9 @@ export const login = (email, password) => async dispatch => {
 
 //LogOut / Clear Profile
 export const logout = () => dispatch => {
-  localStorage.removeItem('token');
+  localStorage.removeItem("token");
   dispatch({
-    type: CLEAR_PROFILE
+    type: CLEAR_USER_PROFILE
   });
   dispatch({
     type: LOGOUT

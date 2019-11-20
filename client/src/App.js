@@ -11,6 +11,7 @@ import Profile from "./components/layout/profile/Profile";
 import Blog from "./components/layout/blog/Blog";
 import About from "./components/layout/About";
 import Restauratoriai from "./components/layout/restauratoriai/Restauratoriai";
+import Restauratorius from "./components/layout/restauratoriai/Restauratorius";
 import Navbar from "./components/layout/Navbar";
 import Login from "./components/layout/Login";
 import Signup from "./components/layout/Signup";
@@ -37,6 +38,7 @@ let App = ({ isAuthenticated }) => {
       <Switch>
         <Route exact path='/' component={Landing} />
         <Route exact path='/restauratoriai' component={Restauratoriai} />
+        <Route exact path='/restauratoriai/:id' component={Restauratorius} />
         <Route exact path='/blog' component={Blog} />
         <Route exact path='/blog/:id' component={BlogPost} />
         <Route exact path='/about' component={About} />

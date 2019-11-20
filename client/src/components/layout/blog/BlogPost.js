@@ -1,4 +1,4 @@
-import React, { useEffect, useState, Fragment } from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { EditorState, convertFromRaw } from "draft-js";
@@ -22,15 +22,14 @@ const useStyles = makeStyles({
   body: {
     display: "flex",
     flexDirection: "column",
-    alignItems: "center",
-    width: "100%",
-    maxWidth: "1040px"
+    alignItems: "center"
   },
   progress: {
     margin: "50px"
   },
   paper: {
     padding: "10px",
+    maxWidth: "1040px",
     width: "calc(100% - 40px)",
     margin: "10px 10px 40px 10px"
   },
@@ -126,7 +125,7 @@ const BlogPost = ({ getBlogPosts, blog, match, history }) => {
           <CircularProgress />
         </div>
       ) : (
-        <Fragment>
+        <div>
           <Paper className={classes.paper}>
             <img
               src={post.img.filePath}
@@ -185,7 +184,7 @@ const BlogPost = ({ getBlogPosts, blog, match, history }) => {
               </Button>
             </DialogActions>
           </Dialog>
-        </Fragment>
+        </div>
       )}
     </div>
   );
