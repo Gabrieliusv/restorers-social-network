@@ -3,11 +3,12 @@ import {
   GET_PROFILE,
   GET_USER_PROFILE,
   GET_PROFILES,
+  CLEAR_USER_PROFILE,
   CLEAR_PROFILE
 } from "../actions/types";
 
 const initialState = {
-  profile: {},
+  profile: null,
   profileLoading: true,
   profiles: [],
   profilesLoading: true,
@@ -44,12 +45,18 @@ export default function(state = initialState, action) {
         error: payload,
         loading: false
       };
-    case CLEAR_PROFILE:
+    case CLEAR_USER_PROFILE:
       return {
         ...state,
         userProfile: null,
         loading: true,
         error: []
+      };
+    case CLEAR_PROFILE:
+      return {
+        ...state,
+        profile: null,
+        profileLoading: true
       };
     default:
       return state;

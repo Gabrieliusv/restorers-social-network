@@ -5,7 +5,6 @@ import {
   GET_PROFILES,
   GET_USER_PROFILE,
   PROFILE_ERROR,
-  ACCOUNT_DELETED,
   CLEAR_PROFILE
 } from "./types";
 
@@ -41,6 +40,13 @@ export const getProfile = id => async dispatch => {
       payload: { msg: err.response.data.msg, status: err.response.status }
     });
   }
+};
+
+//Clear profile
+export const clearProfile = () => dispatch => {
+  dispatch({
+    type: CLEAR_PROFILE
+  });
 };
 
 //Get current users profile
@@ -88,27 +94,6 @@ export const createProfile = (formData, update) => async dispatch => {
       errors.forEach(error => dispatch(setAlert(error.msg, "error")));
     }
 
-    dispatch({
-      type: PROFILE_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status }
-    });
-  }
-};
-
-//Delete user account
-export const deleteAccount = () => async dispatch => {
-  try {
-    await axios.delete("/api/profile/");
-    await axios.delete("/api/character/deleteAll");
-
-    localStorage.removeItem("token");
-    dispatch({
-      type: CLEAR_PROFILE
-    });
-    dispatch({
-      type: ACCOUNT_DELETED
-    });
-  } catch (err) {
     dispatch({
       type: PROFILE_ERROR,
       payload: { msg: err.response.statusText, status: err.response.status }
