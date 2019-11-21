@@ -2,13 +2,8 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { getProfiles } from "../../../redux/actions/profileActions";
-import {
-  makeStyles,
-  CircularProgress,
-  Grid,
-  Typography,
-  TextField
-} from "@material-ui/core";
+import { makeStyles, Grid, Typography, TextField } from "@material-ui/core";
+import Progress from "../../customMaterial-ui/Progress";
 
 const useStyles = makeStyles(theme => ({
   search: {
@@ -18,11 +13,6 @@ const useStyles = makeStyles(theme => ({
       justifyContent: "center",
       margin: "30px 0 0 0"
     }
-  },
-  progress: {
-    display: "flex",
-    justifyContent: "center",
-    paddingTop: "50px"
   },
   grid: {
     padding: "30px"
@@ -81,9 +71,7 @@ function Restauratoriai({
         />
       </div>
       {profilesLoading ? (
-        <div className={classes.progress}>
-          <CircularProgress />
-        </div>
+        <Progress />
       ) : searchResult ? (
         <Grid className={classes.grid} container spacing={1}>
           {searchResult.map(profile => (

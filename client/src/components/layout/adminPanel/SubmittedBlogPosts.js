@@ -10,12 +10,12 @@ import {
   Button,
   Typography,
   Box,
-  CircularProgress,
   Dialog,
   DialogTitle,
   DialogContent,
   DialogActions
 } from "@material-ui/core";
+import Progress from "../../customMaterial-ui/Progress";
 import DeleteIcon from "@material-ui/icons/Delete";
 import PreviewPost from "./PreviewPost";
 
@@ -25,9 +25,6 @@ const useStyles = makeStyles({
     flexDirection: "column",
     alignItems: "center",
     marginTop: "20px"
-  },
-  progress: {
-    margin: "50px"
   },
   paper: {
     padding: "10px",
@@ -108,9 +105,7 @@ const SubmittedBlogPosts = ({ auth: { isAuthenticated } }) => {
   return (
     <div className={classes.body}>
       {loading ? (
-        <div className={classes.progress}>
-          <CircularProgress />
-        </div>
+        <Progress />
       ) : newPosts.length === 0 && !loading ? (
         <Paper className={classes.paper}>
           <Typography variant='h5' align='center'>

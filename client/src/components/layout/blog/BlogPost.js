@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { EditorState, convertFromRaw } from "draft-js";
 import {
-  CircularProgress,
   useMediaQuery,
   useTheme,
   makeStyles,
@@ -15,6 +14,7 @@ import {
   DialogActions,
   Button
 } from "@material-ui/core";
+import Progress from "../../customMaterial-ui/Progress";
 import ViewOnlyEditor from "../editor/ViewOnlyEditor";
 import { getBlogPosts } from "../../../redux/actions/blogActions";
 
@@ -23,9 +23,6 @@ const useStyles = makeStyles({
     display: "flex",
     flexDirection: "column",
     alignItems: "center"
-  },
-  progress: {
-    margin: "50px"
   },
   paper: {
     padding: "10px",
@@ -121,9 +118,7 @@ const BlogPost = ({ getBlogPosts, blog, match, history }) => {
   return (
     <div className={classes.body}>
       {loading ? (
-        <div className={classes.progress}>
-          <CircularProgress />
-        </div>
+        <Progress />
       ) : (
         <div>
           <Paper className={classes.paper}>

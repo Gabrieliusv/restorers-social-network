@@ -7,9 +7,9 @@ import {
   TextField,
   Typography,
   Button,
-  CircularProgress
+  makeStyles
 } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
+import Progress from "../../customMaterial-ui/Progress";
 import CloudUploadIcon from "@material-ui/icons/CloudUpload";
 import {
   createProfile,
@@ -136,7 +136,7 @@ const EditProfile = ({
   return (
     <div className={classes.body}>
       {!profile ? (
-        <CircularProgress />
+        <Progress />
       ) : (
         <Paper elevation={2} className={classes.paper}>
           <Typography align='center' variant='h5'>

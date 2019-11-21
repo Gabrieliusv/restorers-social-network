@@ -2,13 +2,8 @@ import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
 import { connect } from "react-redux";
-import {
-  Paper,
-  makeStyles,
-  Button,
-  Typography,
-  CircularProgress
-} from "@material-ui/core";
+import { Paper, makeStyles, Button, Typography } from "@material-ui/core";
+import Progress from "../../customMaterial-ui/Progress";
 import DeleteIcon from "@material-ui/icons/Delete";
 
 const useStyles = makeStyles({
@@ -17,9 +12,6 @@ const useStyles = makeStyles({
     flexDirection: "column",
     alignItems: "center",
     marginTop: "20px"
-  },
-  progress: {
-    margin: "50px"
   },
   paper: {
     padding: "10px",
@@ -76,9 +68,7 @@ const NewMembers = ({ auth: { isAuthenticated } }) => {
   return (
     <div className={classes.body}>
       {loading ? (
-        <div className={classes.progress}>
-          <CircularProgress />
-        </div>
+        <Progress />
       ) : newUsers.length === 0 && !loading ? (
         <Paper className={classes.paper}>
           <Typography variant='h5' align='center'>

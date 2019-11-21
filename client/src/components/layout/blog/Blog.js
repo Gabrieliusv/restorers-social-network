@@ -2,13 +2,8 @@ import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { getBlogPosts } from "../../../redux/actions/blogActions";
-import {
-  CircularProgress,
-  Paper,
-  Typography,
-  Box,
-  makeStyles
-} from "@material-ui/core";
+import { Paper, Typography, Box, makeStyles } from "@material-ui/core";
+import Progress from "../../customMaterial-ui/Progress";
 
 const useStyles = makeStyles({
   body: {
@@ -16,9 +11,6 @@ const useStyles = makeStyles({
     flexDirection: "column",
     alignItems: "center",
     marginTop: "20px"
-  },
-  progress: {
-    margin: "50px"
   },
   paper: {
     padding: "10px",
@@ -55,9 +47,7 @@ const Blog = ({ blog: { blogPosts, loading }, getBlogPosts, history }) => {
   return (
     <div className={classes.body}>
       {loading ? (
-        <div className={classes.progress}>
-          <CircularProgress />
-        </div>
+        <Progress />
       ) : blogPosts.length === 0 && !loading ? (
         <Paper className={classes.paper}>
           <Typography variant='h5' align='center'>

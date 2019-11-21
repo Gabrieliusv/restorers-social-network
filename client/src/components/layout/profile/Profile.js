@@ -2,7 +2,8 @@ import React, { useEffect, Fragment } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { getCurrentProfile } from "../../../redux/actions/profileActions";
-import { Grid, Button, CircularProgress, Typography } from "@material-ui/core";
+import { Grid, Button, Typography } from "@material-ui/core";
+import Progress from "../../customMaterial-ui/Progress";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -38,10 +39,6 @@ const useStyles = makeStyles(theme => ({
       display: "flex",
       justifyContent: "center"
     }
-  },
-  loadingProfile: {
-    display: "flex",
-    justifyContent: "center"
   },
   createProfile: {
     display: "flex",
@@ -79,9 +76,7 @@ const Profile = ({
   return (
     <div className={classes.profile}>
       {loading ? (
-        <div className={classes.loadingProfile}>
-          <CircularProgress />
-        </div>
+        <Progress />
       ) : !userProfile ? (
         noProfile
       ) : (

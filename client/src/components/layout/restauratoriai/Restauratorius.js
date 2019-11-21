@@ -7,7 +7,6 @@ import {
 } from "../../../redux/actions/profileActions";
 import {
   makeStyles,
-  CircularProgress,
   Grid,
   Button,
   Dialog,
@@ -16,15 +15,11 @@ import {
   DialogContentText,
   DialogActions
 } from "@material-ui/core";
+import Progress from "../../customMaterial-ui/Progress";
 
 const useStyles = makeStyles(theme => ({
   body: {
     padding: "10px"
-  },
-  progress: {
-    display: "flex",
-    justifyContent: "center",
-    paddingTop: "50px"
   },
   profile__image__box: {
     display: "flex",
@@ -75,9 +70,7 @@ const Restauratorius = ({
   return (
     <div className={classes.body}>
       {profileLoading ? (
-        <div className={classes.progress}>
-          <CircularProgress />
-        </div>
+        <Progress />
       ) : (
         <Grid container direction='row' justify='center' p={1}>
           <Grid item xs={12} sm={3} md={3}>
