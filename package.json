@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "social network for restorers",
   "main": "index.js",
+  "engines": {
+    "node": "12.9.1",
+    "npm": "6.11.2"
+  },
   "scripts": {
     "client-install": "npm install --prefix client",
     "start": "node server.js",
