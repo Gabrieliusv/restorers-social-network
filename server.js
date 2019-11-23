@@ -1,7 +1,7 @@
 const express = require("express");
 const connectDB = require("./db");
 const path = require("path");
-const cron = require("./cron");
+//const cron = require("./cron");
 
 const app = express();
 
