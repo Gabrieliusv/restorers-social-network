@@ -15,4 +15,4 @@ https://restorers-test.herokuapp.com/
 * [Express](https://expressjs.com/) - Node.js web application framework
 * [MongoDB](https://www.mongodb.com/) - NoSQL database
 
-![preview](https://github.com/Gabrieliusv/book-planner-fullstack/blob/master/preview.gif)
+![preview](https://github.com/Gabrieliusv/restorers-social-network/blob/master/preview.gif)
